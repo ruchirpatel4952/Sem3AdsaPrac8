@@ -8,7 +8,7 @@ int kth_largest(std::vector<int> values, int k) {
 
   for (int value : values) {
     min_heap.push(value);
-    if (min_heap.size() > k) {
+    if (min_heap.size() > static_cast<std::vector<int>::size_type>(k)) {
       min_heap.pop();
     }
   }

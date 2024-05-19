@@ -37,7 +37,7 @@ Heap<T>::Heap() {}
 template <typename T>
 Heap<T>::Heap(std::vector<T> start_values) {
   // copy the values into our heap vector
-  for (int i = 0; i < start_values.size(); i++) {
+  for (typename std::vector<T>::size_type i = 0; i < start_values.size(); i++) {
     values.push_back(start_values.at(i));
   }
 
@@ -77,14 +77,14 @@ void Heap<T>::insert(T value) {
 template <typename T>
 void Heap<T>::remove(T value) {
   // find the index of the value to remove
-  int index = -1;
-  for (int i = 0; i < values.size(); i++) {
+  typename std::vector<T>::size_type index = -1;
+  for (typename std::vector<T>::size_type i = 0; i < values.size(); i++) {
     if (values[i] == value) {
       index = i;
       break;
     }
   }
-  if (index == -1) return;  // value not found
+  if (index == static_cast<typename std::vector<T>::size_type>(-1)) return;  // value not found
 
   // replace the value to remove with the last value in the vector
   values[index] = values.back();
@@ -114,7 +114,7 @@ T Heap<T>::getMin() {
 template <typename T>
 void Heap<T>::heapify(int parent_index) {
   // if we're outside the index range, return
-  if (parent_index < 0 || parent_index >= values.size()) return;
+  if (parent_index < 0 || parent_index >= static_cast<int>(values.size())) return;
 
   // find children indexes
   int left_child_index = parent_index * 2 + 1;
@@ -124,14 +124,14 @@ void Heap<T>::heapify(int parent_index) {
   int index_of_smallest = parent_index;
 
   // check if left child exists and if exists, is smallest value there
-  if (left_child_index < values.size() &&
+  if (left_child_index < static_cast<int>(values.size()) &&
       values.at(left_child_index) < values.at(index_of_smallest)) {
     // make this index the current smallest
     index_of_smallest = left_child_index;
   }
 
   // check if left child exists and if exists, is smallest value there
-  if (right_child_index < values.size() &&
+  if (right_child_index < static_cast<int>(values.size()) &&
       values.at(right_child_index) < values.at(index_of_smallest)) {
     // make this index the current smallest
     index_of_smallest = right_child_index;
